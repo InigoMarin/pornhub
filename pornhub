@@ -1,3 +1,63 @@
-#!/bin/sh
+#!/bin/bash
 
-pornhub.py -s $1 | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
+function usage ()
+{
+ echo "Usage :  $0 [options] [--]
+
+Options:
+
+ -h    Display this message
+ -d    Video download
+ -f    FZF use
+ -s  <textsearch> "
+}
+
+TYPE="DMENU"
+ACTION="VIEW"
+SEARCH=""
+
+while getopts ":fs:fds:ds:s:h" opt;
+do
+    case ${opt} in
+        f)
+            TYPE=FZF;;
+        h)
+            usage; exit 0 ;;
+        d)
+            ACTION=DOWNLOAD;;
+        s)
+            SEARCH=$OPTARG;;
+        *)
+            usage; exit 1;;
+    esac
+done
+
+echo "Option:"
+echo $TYPE
+echo "Action:"
+echo $ACTION
+echo "Text:"
+echo $SEARCH
+
+case $TYPE in
+    FZF)
+        case $ACTION in
+            DOWNLOAD)
+                pornhub.py -s $SEARCH | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
+                exit 0 ;;
+            VIEW)
+                pornhub.py -s $SEARCH | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
+                exit 0 ;;
+        esac;;
+    DMENU)
+
+        case $ACTION in
+            DOWNLOAD)
+                pornhub.py -s $SEARCH | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
+                exit 0 ;;
+            VIEW)
+                pornhub.py -s $SEARCH | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
+                exit 0 ;;
+        esac;;
+esac
+

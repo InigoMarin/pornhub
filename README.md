@@ -16,15 +16,31 @@ It install two programs:
 
 ## Program Requeriments
 
-+ **fzf**
++ **fzf** | **dmenu**
 + **mpv**
 + **xargs**
++ youtube-dl
 
 ## Python pip requeriments
 
 + **pornhub-api**
 
-
 ## Usage
 
-`pornhub <textsearch>`
+### Dmenu
+
+`pornhub -s <textsearch>`
+
+`pornhub -d -s <textsearch>`
+
+To download video.
+
+### fzf
+
+`pornhub -f -s <textsearch>`
+
+`pornhub -f -d -s <textsearch>`
+
+To download video.
+
+
