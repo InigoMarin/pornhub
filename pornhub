@@ -32,12 +32,12 @@ do
     esac
 done
 
-echo "Option:"
-echo $TYPE
-echo "Action:"
-echo $ACTION
-echo "Text:"
-echo $SEARCH
+#echo "Option:"
+#echo $TYPE
+#echo "Action:"
+#echo $ACTION
+#echo "TEXT:"
+#echo $SEARCH
 
 case $TYPE in
     FZF)
