@@ -6,18 +6,25 @@ It install two programs:
 + pornhub.py
 + pornhub : Bash script to pornhub and pipe programs
 
+## Installation
 
-# Program Requerimets
+`sudo make`
 
-+ fzf
-+ mpv
-+ xargs
+## Uninstall
 
-# Python pip requerimets
+`sudo make clean`
 
-+ pornhub-api
+## Program Requerimets
+
++ **fzf**
++ **mpv**
++ **xargs**
+
+## Python pip requerimets
+
++ **pornhub-api**
 
 
-# Usage
+## Usage
 
-pornhub <textsearch>
+`pornhub <textsearch>`
