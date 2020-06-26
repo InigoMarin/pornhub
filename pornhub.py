@@ -20,10 +20,10 @@ def search(text):
 def usage():
     print ('''
 Usage:
-    pornhub -h | pornhub --help
-    pornhub -v | pornhub --version"
-    pornhub -s <search>
-    pornhub --search=<search>
+    pornhub.py -h | pornhub.py --help
+    pornhub.py -v | pornhub.py --version"
+    pornhub.py -s <search>
+    pornhub.py --search=<search>
     ''')
 
 def main(argv=None):
