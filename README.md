@@ -20,7 +20,7 @@ It install two programs:
 + **mpv**
 + **xargs**
 
-## Python pip requerimeints
+## Python pip requeriments
 
 + **pornhub-api**
 
