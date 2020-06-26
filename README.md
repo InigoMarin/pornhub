@@ -14,13 +14,13 @@ It install two programs:
 
 `sudo make clean`
 
-## Program Requerimets
+## Program Requeriments
 
 + **fzf**
 + **mpv**
 + **xargs**
 
-## Python pip requerimets
+## Python pip requerimeints
 
 + **pornhub-api**
 
