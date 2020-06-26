@@ -2,9 +2,11 @@
 # encoding: utf-8
 
 from pornhub_api import PornhubApi
-import npyscreen as np
+import getopt, sys
 
+version='1.0'
 api = PornhubApi()
+
 
 def search(text):
     data = api.search.search(
@@ -12,43 +14,41 @@ def search(text):
     ordering="mostviewed",
     period="weekly",)
     for vid in data.videos:
-        print(vid.title, vid.url)
-
-class ResultForm(np.Form):
-    def afterEditing(self):
-        self.parentApp.setNextForm(None)
-
-    def create(self):
-        self.add(np.TitleText, name = "Name:",)
-        self.add(np.TitleText, name = "Dept:")
-        self.add(np.TitleText, name = "Employed:")
+        print(vid.title,";",vid.url)
 
 
-    def on_cancel(self):
-        self.parentApp.switchFormPrevious()
+def usage():
+    print ('''
+Usage:
+    pornhub -h | pornhub --help
+    pornhub -v | pornhub --version"
+    pornhub -s <search>
+    pornhub --search=<search>
+    ''')
 
+def main(argv=None):
 
-class SearchForm(np.Form):
-    def create(self):
-        self,self.add(np.TitleText, name = "Search:" , value = self.parentApp.search)
-        self.add(np.TitleSelectOne, max_height=4, value = [1,], name="Period:",
-                values = ["monthly","alltimes"], scroll_exit=True)
+    searchText=None
+    if argv is None:
+        argv = sys.argv
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],"hs:v", ["help", "search=","version"])
+    except getopt.GetoptError as err:
+        print(str(err))
+        usage()
+        sys.exit(1)
 
-    def afterEditing(self):
-        self.parentApp.setNextForm("RESULT")
+    for opt,arg in opts:
+        if opt in ('-v', '--version'):
+            print( argv[0] + " " + version)
+            sys.exit(0)
+        if opt in ('-s', '--search'):
+            searchText = arg
+        if opt in ('-h', '--help'):
+            usage()
+            sys.exit(0)
 
-class MyTestApp(np.NPSAppManaged):
-
-    search = None
-
-    def onStart(self):
-        self.addForm('MAIN', SearchForm, name='Search PornHub')
-        self.addForm('RESULT', ResultForm, name='Result PornHub')
-
-# This form class defines the display that will be presented to the user.
-
-
+    search(searchText)
 
 if __name__ == '__main__':
-    MyTestApp().run()
-
+    main()
