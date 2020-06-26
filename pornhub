@@ -43,20 +43,20 @@ case $TYPE in
     FZF)
         case $ACTION in
             DOWNLOAD)
-                pornhub.py -s $SEARCH | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
+                pornhub.py -s "$SEARCH" | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
                 exit 0 ;;
             VIEW)
-                pornhub.py -s $SEARCH | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
+                pornhub.py -s "$SEARCH" | fzf  -e  -d ";" --with-nth 1 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
                 exit 0 ;;
         esac;;
     DMENU)
 
         case $ACTION in
             DOWNLOAD)
-                pornhub.py -s $SEARCH | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
+                pornhub.py -s "$SEARCH" | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} youtube-dl '{}';
                 exit 0 ;;
             VIEW)
-                pornhub.py -s $SEARCH | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
+                pornhub.py -s "$SEARCH" | dmenu -l 30 -fn Monospace-14 | cut -d ";" --field=2 | xargs -I {} mpv '{}';
                 exit 0 ;;
         esac;;
 esac
