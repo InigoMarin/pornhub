@@ -9,11 +9,8 @@ version = '1.0'
 api = PornhubApi()
 
 
-def search(text):
-    data = api.search.search(
-        text,
-        ordering="mostviewed",
-        period="weekly",)
+def search(text, page):
+    data = api.search.search(text, page=page, ordering="mostviewed")
     for vid in data.videos:
         print(vid.title, ";", vid.url)
 
@@ -24,6 +21,7 @@ Usage:
     pornhub.py -h | pornhub.py --help
     pornhub.py -v | pornhub.py --version"
     pornhub.py -s <search>
+    pornhub.py -s <search> -p <page>
     pornhub.py --search=<search>
     ''')
 
@@ -31,11 +29,12 @@ Usage:
 def main(argv=None):
 
     searchText = None
+    page = 1
     if argv is None:
         argv = sys.argv
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hs:v", [
-                                   "help", "search=", "version"])
+        opts, args = getopt.getopt(sys.argv[1:], "hs:p:v", [
+                                   "help", "search=", "page=", "version"])
     except getopt.GetoptError as err:
         print(str(err))
         usage()
@@ -47,11 +46,13 @@ def main(argv=None):
             sys.exit(0)
         if opt in ('-s', '--search'):
             searchText = arg
+        if opt in ('-p', '--page'):
+            page = arg
         if opt in ('-h', '--help'):
             usage()
             sys.exit(0)
 
-    search(searchText)
+    search(searchText, page)
 
 
 if __name__ == '__main__':
